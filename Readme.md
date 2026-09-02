@@ -73,6 +73,22 @@ application menu. If the menu does not refresh immediately, run:
 update-desktop-database /usr/local/share/applications 2>/dev/null || true
 ```
 
+### Create a desktop shortcut ###
+
+To place a Zeit launcher directly on the desktop, run this as your normal
+user after installing the application:
+
+```bash
+DESKTOP_DIR="$(xdg-user-dir DESKTOP 2>/dev/null || printf '%s\n' "$HOME/Desktop")"
+mkdir -p "$DESKTOP_DIR"
+cp /usr/local/share/applications/zeit.desktop "$DESKTOP_DIR/Zeit.desktop"
+chmod +x "$DESKTOP_DIR/Zeit.desktop"
+gio set "$DESKTOP_DIR/Zeit.desktop" metadata::trusted true 2>/dev/null || true
+```
+
+The shortcut uses the installed executable and icon paths. If the file does
+not appear immediately, log out and in again or refresh the desktop.
+
 ### Install for the current user ###
 
 This option does not require `sudo` and installs the application and its
