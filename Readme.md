@@ -16,27 +16,30 @@ On Fedora, install the build dependencies with:
 
 ```bash
 sudo dnf install cmake gcc-c++ qt6-qtbase-devel qt6-qttools-devel \
-	extra-cmake-modules kf6-kauth-devel kf6-kcoreaddons-devel
+	extra-cmake-modules kf6-kauth-devel kf6-kcoreaddons-devel \
+	cronie at libnotify mpv
 ```
 
 Qt 5 remains available as a compatibility option by configuring with
 `-DWITH_QT6=OFF` and installing `qt5-qtbase-devel` and `qt5-qttools`.
 
 ### Runtime dependencies ###
-On Fedora: `libnotify`, `mpv`
+On Fedora: `cronie`, `at`, `libnotify`, `mpv`
 
 ### Build and run ###
 ```bash
-mkdir build && cd build
-cmake .. -DCMAKE_BUILD_TYPE=Release
-cmake --build . --parallel
-./src/zeit
+cmake -S . -B build \
+	-DCMAKE_BUILD_TYPE=Release \
+	-DCMAKE_INSTALL_PREFIX=/usr/local
+cmake --build build --parallel
+/usr/local/bin/zeit
 ```
 
 ### Installation on Fedora ###
 
 ```bash
-sudo cmake --install . --prefix /usr
+sudo cmake --install build
+sudo ldconfig
 ```
 
 ### Screenshot ###
