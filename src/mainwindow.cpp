@@ -20,7 +20,9 @@
 #include "config.h"
 
 #include <QMessageBox>
+#include <QApplication>
 #include <QKeyEvent>
+#include <QMenu>
 #include <QProcess>
 #include <QSettings>
 #include <QSystemTrayIcon>
@@ -90,6 +92,27 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent),
     ui->actionTasks->setActionGroup(group);
     ui->actionVariables->setActionGroup(group);
     ui->actionCommands->setActionGroup(group);
+    auto* languageMenu = new QMenu(MainWindow::tr("&Language"), ui->menuHelp);
+    auto* languageGroup = new QActionGroup(languageMenu);
+    languageGroup->setExclusive(true);
+    const QList<QPair<QString, QString>> languages = {
+        {QStringLiteral("system"), MainWindow::tr("Automatic")},
+        {QStringLiteral("pt_BR"), MainWindow::tr("Portuguese (Brazil)")},
+        {QStringLiteral("en_US"), MainWindow::tr("English")}
+    };
+    QSettings settings(QCoreApplication::organizationName(),
+                       QCoreApplication::applicationName());
+    const QString selectedLanguage = settings.value(QStringLiteral("General/language"),
+                                                     QStringLiteral("system")).toString();
+    for(const auto& language : languages) {
+        auto* action = languageGroup->addAction(language.second);
+        action->setCheckable(true);
+        action->setData(language.first);
+        action->setChecked(language.first == selectedLanguage);
+    }
+    ui->menuHelp->addMenu(languageMenu);
+    connect(languageGroup, &QActionGroup::triggered,
+            this, &MainWindow::changeLanguage);
     connect(ui->toggleItemAction, &QAction::triggered,
             this, [this] { list->toggleEntry(ui->listWidget->currentRow()); });
     ui->listWidget->addAction(ui->toggleItemAction);
@@ -150,6 +173,15 @@ MainWindow::~MainWindow() {
     delete commands;
     delete ctHost;
     delete ui;
+}
+
+void MainWindow::changeLanguage(QAction* action) {
+    QSettings settings(QCoreApplication::organizationName(),
+                       QCoreApplication::applicationName());
+    settings.setValue(QStringLiteral("General/language"), action->data().toString());
+    QProcess::startDetached(QApplication::applicationFilePath(),
+                            QApplication::arguments());
+    qApp->quit();
 }
 
 void MainWindow::show() {

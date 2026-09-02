@@ -35,6 +35,7 @@ class QListWidgetItem;
 class Commands;
 class BaseDelegate;
 class QSystemTrayIcon;
+class QAction;
 
 class MainWindow : public QMainWindow
 {
@@ -57,6 +58,7 @@ class MainWindow : public QMainWindow
     void showAlarmDialog();
     void showTimerDialog();
     void showAboutDialog();
+    void changeLanguage(QAction* action);
 
 public:
     explicit MainWindow(QWidget* parent = nullptr);
