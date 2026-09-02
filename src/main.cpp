@@ -61,6 +61,16 @@ public:
             {QStringLiteral("English"), QStringLiteral("Inglês")},
             {QStringLiteral("Filter…"), QStringLiteral("Filtrar…")},
             {QStringLiteral("Hide"), QStringLiteral("Ocultar")},
+            {QStringLiteral("Add "), QStringLiteral("Adicionar ")},
+            {QStringLiteral("Copy "), QStringLiteral("Copiar ")},
+            {QStringLiteral("Modify "), QStringLiteral("Modificar ")},
+            {QStringLiteral("Delete "), QStringLiteral("Excluir ")},
+            {QStringLiteral("Task"), QStringLiteral("Tarefa")},
+            {QStringLiteral("Variable"), QStringLiteral("Variável")},
+            {QStringLiteral("Command"), QStringLiteral("Comando")},
+            {QStringLiteral("Description: "), QStringLiteral("Descrição: ")},
+            {QStringLiteral("Command: "), QStringLiteral("Comando: ")},
+            {QStringLiteral("(Copy)"), QStringLiteral("(Cópia)")},
             {QStringLiteral("New Alarm"), QStringLiteral("Novo alarme")},
             {QStringLiteral("New Command"), QStringLiteral("Novo comando")},
             {QStringLiteral("New Timer"), QStringLiteral("Novo temporizador")},
@@ -131,7 +141,7 @@ int main(int argc, char *argv[])
     if(!usePortuguese)
         a.installTranslator(&translator);
     QTranslator libTranslator;
-    if(language != QLatin1String("pt_BR")) {
+    if(!usePortuguese) {
         result &= libTranslator.load(QApplication::applicationDirPath() +
                                  QLatin1String("/../share/zeit/translations/") +
                                  QLatin1String("crontablib_") +
