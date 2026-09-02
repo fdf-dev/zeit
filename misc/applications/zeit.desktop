@@ -1,8 +1,8 @@
 [Desktop Entry]
 Name=Zeit
 Comment=Qt GUI for crontab and at
-Exec=zeit
-Icon=zeit
+Exec=@CMAKE_INSTALL_FULL_BINDIR@/zeit
+Icon=@CMAKE_INSTALL_FULL_DATADIR@/icons/hicolor/32x32/apps/zeit.xpm
 Terminal=false
 Type=Application
 Categories=Utility;
