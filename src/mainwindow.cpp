@@ -96,9 +96,9 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent),
     auto* languageGroup = new QActionGroup(languageMenu);
     languageGroup->setExclusive(true);
     const QList<QPair<QString, QString>> languages = {
-        {QStringLiteral("system"), MainWindow::tr("Automatic")},
-        {QStringLiteral("pt_BR"), MainWindow::tr("Portuguese (Brazil)")},
-        {QStringLiteral("en_US"), MainWindow::tr("English")}
+        {QStringLiteral("system"), QStringLiteral("Automático")},
+        {QStringLiteral("pt_BR"), QStringLiteral("Português (Brasil)")},
+        {QStringLiteral("en_US"), QStringLiteral("Inglês")}
     };
     QSettings settings(QCoreApplication::organizationName(),
                        QCoreApplication::applicationName());
