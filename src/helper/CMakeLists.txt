@@ -2,10 +2,10 @@
 add_executable(zeit_helper zeithelper.cpp)
 if(WITH_QT6)
   target_link_libraries(zeit_helper KF6::AuthCore)
-  target_include_directories(zeit_helper PRIVATE Qt6::Core KF6::Auth)
+  target_include_directories(zeit_helper PRIVATE ${Qt6Core_INCLUDE_DIRS} ${KF6Auth_INCLUDE_DIRS})
 else()
   target_link_libraries(zeit_helper KF5::AuthCore)
-  target_include_directories(zeit_helper PRIVATE Qt5::Core KF5::Auth)
+  target_include_directories(zeit_helper PRIVATE ${Qt5Core_INCLUDE_DIRS} ${KF5Auth_INCLUDE_DIRS})
 endif()
 
 find_package (ECM REQUIRED NO_MODULE)

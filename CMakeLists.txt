@@ -1,7 +1,11 @@
-cmake_minimum_required (VERSION 3.5)
+cmake_minimum_required (VERSION 3.16)
 project(zeit)
 
 option(BUILD_TESTS        "Build tests"            OFF)
+option(WITH_QT6           "Build with Qt 6"        ON)
+
+include(GNUInstallDirs)
+set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_FULL_LIBDIR}")
 
 set(VERSION_MAJOR 0)
 set(VERSION_MINOR 6)
@@ -12,7 +16,11 @@ set(CRONTAB_V "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
 file(READ rev ZEIT_REVISION LIMIT 9)
 
 if(WITH_QT6)
-    find_package (Qt6 6.2.0 CONFIG REQUIRED COMPONENTS Core Gui Widgets Test)
+    set(QT_REQUIRED_COMPONENTS Core Gui Widgets)
+    if(BUILD_TESTS)
+      list(APPEND QT_REQUIRED_COMPONENTS Test)
+    endif()
+    find_package (Qt6 6.2.0 CONFIG REQUIRED COMPONENTS ${QT_REQUIRED_COMPONENTS})
     # root actions support KF6
     find_package(KF6Auth)
     if(KF6Auth_FOUND)
@@ -22,7 +30,11 @@ if(WITH_QT6)
       endif()
     endif()
 else()
-    find_package (Qt5 5.14.0 CONFIG REQUIRED COMPONENTS Core Gui Widgets Test)
+    set(QT_REQUIRED_COMPONENTS Core Gui Widgets)
+    if(BUILD_TESTS)
+      list(APPEND QT_REQUIRED_COMPONENTS Test)
+    endif()
+    find_package (Qt5 5.14.0 CONFIG REQUIRED COMPONENTS ${QT_REQUIRED_COMPONENTS})
     # root actions support KF5
     find_package(KF5Auth)
     if(KF5Auth_FOUND)

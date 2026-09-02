@@ -78,7 +78,8 @@ CTCron::CTCron(const QString& crontabBinary,
 	d->crontabBinary = crontabBinary;
 
 	QTemporaryFile tmp;
-	tmp.open();
+    if (!tmp.open())
+        return;
 	d->tmpFileName = tmp.fileName();
 
 	CommandLine readCommandLine;

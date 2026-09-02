@@ -70,7 +70,7 @@ target_link_libraries(zeit crontab ${qt_LIBS})
 target_compile_features(zeit PRIVATE cxx_lambdas cxx_nullptr cxx_unicode_literals)
 
 install(TARGETS zeit RUNTIME DESTINATION bin)
-install(FILES ${QM_FILES} DESTINATION ${CMAKE_INSTALL_PREFIX}/share/zeit/translations)
+install(FILES ${QM_FILES} DESTINATION ${CMAKE_INSTALL_DATADIR}/zeit/translations)
 
 if(BUILD_HELPER)
   add_subdirectory(helper)

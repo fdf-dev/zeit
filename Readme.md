@@ -9,21 +9,34 @@
 * Optional root actions, PolKit support (KF5Auth and KF5CoreAddons needed)
 
 ### Build dependencies ###
-Extra CMake Modules, QtBase, QtTools, KF5Auth (optional), KF5CoreAddons (optional)
+Extra CMake Modules, CMake 3.16 or newer, Qt 6 Base, Qt 6 Tools,
+KF6Auth (optional), KF6CoreAddons (optional)
+
+On Fedora, install the build dependencies with:
 
 ```bash
-sudo apt install qtbase5-dev qttools5-dev libkf5auth-dev libkf5coreaddons-dev extra-cmake-modules
+sudo dnf install cmake gcc-c++ qt6-qtbase-devel qt6-qttools-devel \
+	extra-cmake-modules kf6-kauth-devel kf6-kcoreaddons-devel
 ```
 
+Qt 5 remains available as a compatibility option by configuring with
+`-DWITH_QT6=OFF` and installing `qt5-qtbase-devel` and `qt5-qttools`.
+
 ### Runtime dependencies ###
-libnotify-bin, mpv
+On Fedora: `libnotify`, `mpv`
 
 ### Build and run ###
 ```bash
 mkdir build && cd build
-cmake ..
-make -j2
+cmake .. -DCMAKE_BUILD_TYPE=Release
+cmake --build . --parallel
 ./src/zeit
+```
+
+### Installation on Fedora ###
+
+```bash
+sudo cmake --install . --prefix /usr
 ```
 
 ### Screenshot ###

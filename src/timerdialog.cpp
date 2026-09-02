@@ -50,7 +50,7 @@ TimerDialog::TimerDialog(Commands* commands_, QWidget* parent) :
     ui->spinBoxHours->setValue(time.hour());
     ui->spinBoxMinutes->setValue(time.minute());
     /* file dialog actions */
-    connect(ui->pushButtonSoundFile, &QPushButton::released, this, [=] {
+    connect(ui->pushButtonSoundFile, &QPushButton::released, this, [this] {
         QString file = QFileDialog::getOpenFileName(
                     this,
                     QStringLiteral("Sound File"),
@@ -58,7 +58,7 @@ TimerDialog::TimerDialog(Commands* commands_, QWidget* parent) :
                     QStringLiteral("Media (*.wav *.ogg *.mp3 *.flac)"));
         ui->lineEditSoundFile->setText(file);
     });
-    connect(ui->pushButtonPlayer, &QPushButton::released, this, [=] {
+    connect(ui->pushButtonPlayer, &QPushButton::released, this, [this] {
         QFileDialog* fd = new QFileDialog(this, QStringLiteral("Player"),
                                           QDir::homePath());
         fd->setMimeTypeFilters(
@@ -74,11 +74,11 @@ TimerDialog::TimerDialog(Commands* commands_, QWidget* parent) :
     ui->pushButtonSoundFile->setIcon(
                 QIcon::fromTheme(QStringLiteral("document-open")));
     /* dialog actions */
-    connect(ui->pushButtonCurrent, &QPushButton::released, this, [=] {
+    connect(ui->pushButtonCurrent, &QPushButton::released, this, [this] {
         ui->spinBoxHours->setValue(QTime::currentTime().hour());
         ui->spinBoxMinutes->setValue(QTime::currentTime().minute());
     });
-    connect(ui->pushButtonReset, &QPushButton::released, this, [=] {
+    connect(ui->pushButtonReset, &QPushButton::released, this, [this] {
         ui->spinBoxHours->setValue(0);
         ui->spinBoxMinutes->setValue(0);
     });

@@ -54,7 +54,7 @@ AlarmDialog::AlarmDialog(CTTask* _ctTask, QWidget* parent) :
                 QIcon::fromTheme(QStringLiteral("document-open")));
     ui->pushButtonSoundFile->setIcon(
                 QIcon::fromTheme(QStringLiteral("document-open")));
-    connect(ui->pushButtonSoundFile, &QPushButton::released, this, [=] {
+    connect(ui->pushButtonSoundFile, &QPushButton::released, this, [this] {
         QString file = QFileDialog::getOpenFileName(
                     this,
                     QStringLiteral("Sound File"),
@@ -62,7 +62,7 @@ AlarmDialog::AlarmDialog(CTTask* _ctTask, QWidget* parent) :
                     QStringLiteral("Media (*.wav *.ogg *.mp3 *.flac)"));
         ui->lineEditSoundFile->setText(file);
     });
-    connect(ui->pushButtonPlayer, &QPushButton::released, this, [=] {
+    connect(ui->pushButtonPlayer, &QPushButton::released, this, [this] {
         QFileDialog* fd = new QFileDialog(this, QStringLiteral("Player"),
                                           QDir::homePath());
         fd->setMimeTypeFilters(
@@ -74,7 +74,7 @@ AlarmDialog::AlarmDialog(CTTask* _ctTask, QWidget* parent) :
             ui->lineEditPlayer->setText(fd->getOpenFileName());
     });
     /* dialog actions */
-    connect(ui->pushButtonReset, &QPushButton::released, this, [=] {
+    connect(ui->pushButtonReset, &QPushButton::released, this, [this] {
         ui->spinBoxHour->setValue(0);
         ui->spinBoxMinute->setValue(0);
     });
