@@ -109,6 +109,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent),
         action->setCheckable(true);
         action->setData(language.first);
         action->setChecked(language.first == selectedLanguage);
+        languageMenu->addAction(action);
     }
     ui->menuHelp->addMenu(languageMenu);
     connect(languageGroup, &QActionGroup::triggered,
