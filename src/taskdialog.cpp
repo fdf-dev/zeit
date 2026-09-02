@@ -18,6 +18,7 @@
 * ======================================================================== */
 
 #include <QRegularExpression>
+#include <QPushButton>
 
 #include "cttask.h"
 #include "taskdialog.h"
@@ -30,6 +31,7 @@ TaskDialog::TaskDialog(CTTask* _ctTask,
     ui(new Ui::TaskDialog)
 {
     ui->setupUi(this);
+    ui->buttonBox->button(QDialogButtonBox::Cancel)->setText(tr("Cancel"));
     setWindowTitle(_caption);
     ui->radioBasic->setChecked(true);
     toggleMode();

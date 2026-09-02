@@ -92,6 +92,8 @@ public:
             {QStringLiteral("Every month"), QStringLiteral("Todo mês")},
             {QStringLiteral("Every weekday"), QStringLiteral("Todos os dias úteis")},
             {QStringLiteral("Time and Date:"), QStringLiteral("Data e hora:")},
+            {QStringLiteral("<span style=\" font-weight:600;\">Time and Date:</span>"),
+             QStringLiteral("<span style=\" font-weight:600;\">Data e hora:</span>")},
             {QStringLiteral("&lt;span style=\" font-weight:600;\"&gt;Time and Date:&lt;/span&gt;"),
              QStringLiteral("&lt;span style=\" font-weight:600;\"&gt;Data e hora:&lt;/span&gt;")},
             {QStringLiteral("Basic"), QStringLiteral("Básico")},

@@ -20,6 +20,7 @@
 #include <QProcess>
 #include <QFileDialog>
 #include <QTime>
+#include <QPushButton>
 
 #include "cttask.h"
 #include "alarmdialog.h"
@@ -32,6 +33,7 @@ AlarmDialog::AlarmDialog(CTTask* _ctTask, QWidget* parent) :
     ui(new Ui::AlarmDialog)
 {
     ui->setupUi(this);
+    ui->buttonBox->button(QDialogButtonBox::Cancel)->setText(tr("Cancel"));
     setWindowTitle(tr("New Alarm"));
     /* prepopulate fields */
     ui->checkBoxMon->setChecked(true);

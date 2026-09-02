@@ -20,6 +20,7 @@
 #include <QProcess>
 #include <QFileDialog>
 #include <QTime>
+#include <QPushButton>
 
 #include "commands.h"
 #include "commanddialog.h"
@@ -32,6 +33,7 @@ CommandDialog::CommandDialog(Commands* commands_, QWidget* parent) :
     commands(commands_)
 {
     ui->setupUi(this);
+    ui->buttonBox->button(QDialogButtonBox::Cancel)->setText(tr("Cancel"));
     setWindowTitle(tr("New Command"));
     ui->lineEditComment->setText(tr("New Command"));
     ui->checkBox->setChecked(true);

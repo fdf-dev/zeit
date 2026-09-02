@@ -18,6 +18,7 @@
 * ======================================================================== */
 
 #include <QRegularExpression>
+#include <QPushButton>
 
 #include "ctvariable.h"
 #include "variabledialog.h"
@@ -31,6 +32,7 @@ VariableDialog::VariableDialog(CTVariable* _ctVar,
     variable(_ctVar)
 {
     ui->setupUi(this);
+    ui->buttonBox->button(QDialogButtonBox::Cancel)->setText(tr("Cancel"));
     setWindowTitle(_caption);
     ui->varEdit->setText(variable->variable);
     ui->valEdit->setText(variable->value);

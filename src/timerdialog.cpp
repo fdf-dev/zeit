@@ -20,6 +20,7 @@
 #include <QProcess>
 #include <QFileDialog>
 #include <QTime>
+#include <QPushButton>
 
 #include "commands.h"
 #include "timerdialog.h"
@@ -32,6 +33,7 @@ TimerDialog::TimerDialog(Commands* commands_, QWidget* parent) :
     commands(commands_)
 {
     ui->setupUi(this);
+    ui->buttonBox->button(QDialogButtonBox::Cancel)->setText(tr("Cancel"));
     setWindowTitle(tr("New Timer"));
     /* prepopulate fields */
     ui->lineEditComment->setText(tr("New Timer"));
