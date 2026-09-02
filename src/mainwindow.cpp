@@ -59,6 +59,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent),
     commands(new Commands())
 {
     ui->setupUi(this);
+    setWindowIcon(QIcon(QStringLiteral(":/zeit.png")));
     ui->mainToolBar->setMovable(false);
     ui->mainToolBar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     ui->filterEdit->hide();
