@@ -1,0 +1,66 @@
+name: Build release packages
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  rpm:
+    name: Build RPM
+    runs-on: ubuntu-latest
+    container: fedora:latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install build tools
+        run: dnf install -y @development-tools cmake extra-cmake-modules qt6-qtbase-devel qt6-qttools-devel rpm-build rpmdevtools at cronie libnotify mpv
+      - name: Build RPM
+        run: |
+          mkdir -p "$HOME/rpmbuild"/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
+          version=$(sed -n 's/^Version:[[:space:]]*//p' packaging/zeit.spec)
+          git archive --format=tar.gz --prefix="zeit-${version}/" HEAD > "$HOME/rpmbuild/SOURCES/zeit-${version}.tar.gz"
+          cp packaging/zeit.spec "$HOME/rpmbuild/SPECS/"
+          rpmbuild -ba "$HOME/rpmbuild/SPECS/zeit.spec"
+          cp "$HOME"/rpmbuild/RPMS/*/zeit-*.rpm .
+      - uses: actions/upload-artifact@v4
+        with:
+          name: zeit-rpm
+          path: zeit-*.rpm
+
+  flatpak:
+    name: Build Flatpak
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Flatpak tooling
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y flatpak flatpak-builder
+          flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+      - name: Build Flatpak
+        run: |
+          sed -i "s/commit: .*/commit: ${GITHUB_SHA}/" io.github.fdf_dev.Zeit.yml
+          flatpak-builder --force-clean --repo=flatpak-repo flatpak-build io.github.fdf_dev.Zeit.yml
+          flatpak build-bundle flatpak-repo Zeit.flatpak io.github.fdf_dev.Zeit
+      - uses: actions/upload-artifact@v4
+        with:
+          name: zeit-flatpak
+          path: Zeit.flatpak
+
+  release:
+    name: Publish GitHub Release
+    needs: [rpm, flatpak]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: release-assets
+          merge-multiple: true
+      - uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          files: release-assets/*

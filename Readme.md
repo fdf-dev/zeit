@@ -49,21 +49,22 @@ git clone https://github.com/fdf-dev/zeit.git
 cd zeit
 ```
 
-### Install the Flatpak package ###
+### Download packages ###
 
-A prebuilt Flatpak bundle is available in the repository. Download and install
-it for the current user with:
+Prebuilt packages are published on the
+[latest GitHub Release](https://github.com/fdf-dev/zeit/releases/latest).
+Download the package for your system and open it with your graphical package
+installer:
 
-```bash
-curl -LO https://github.com/fdf-dev/zeit/raw/master/Zeit.flatpak
-flatpak --user install Zeit.flatpak
-flatpak run io.github.fdf_dev.Zeit
-```
+* **Flatpak:** download `Zeit.flatpak` and open it with a Flatpak-compatible
+  software center.
+* **Fedora/RPM:** download the `.rpm` file and open it with the system software
+  installer.
 
-The Flatpak manifest is available as
-[`io.github.fdf_dev.Zeit.yml`](io.github.fdf_dev.Zeit.yml) for reproducible
-builds. The sandbox allows access to the user's home directory, but system
-crontab operations and privileged PolKit actions are not available.
+The [Flatpak manifest](io.github.fdf_dev.Zeit.yml) and
+[RPM spec](packaging/zeit.spec) are included for reproducible builds. The
+Flatpak sandbox allows access to the user's home directory, but system crontab
+operations and privileged PolKit actions are not available.
 
 ### Build and run ###
 ```bash
