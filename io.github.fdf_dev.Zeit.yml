@@ -1,0 +1,27 @@
+app-id: io.github.fdf_dev.Zeit
+runtime: org.kde.Platform
+runtime-version: "6.11"
+sdk: org.kde.Sdk
+command: zeit
+
+finish-args:
+  - --share=ipc
+  - --socket=x11
+  - --socket=wayland
+  - --device=dri
+  - --socket=pulseaudio
+  - --talk-name=org.freedesktop.Notifications
+  - --filesystem=home
+
+modules:
+  - name: zeit
+    buildsystem: cmake-ninja
+    config-opts:
+      - -DCMAKE_BUILD_TYPE=Release
+      - -DBUILD_TESTS=OFF
+      - -DWITH_QT6=ON
+      - -DCMAKE_DISABLE_FIND_PACKAGE_KF6Auth=TRUE
+    sources:
+      - type: git
+        url: https://github.com/fdf-dev/zeit.git
+        commit: a7f6bc44337a1bbe9daf030bec9b9f3b936fbacf
