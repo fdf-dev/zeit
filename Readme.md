@@ -49,6 +49,22 @@ git clone https://github.com/fdf-dev/zeit.git
 cd zeit
 ```
 
+### Install the Flatpak package ###
+
+A prebuilt Flatpak bundle is available in the repository. Download and install
+it for the current user with:
+
+```bash
+curl -LO https://github.com/fdf-dev/zeit/raw/master/Zeit.flatpak
+flatpak --user install Zeit.flatpak
+flatpak run io.github.fdf_dev.Zeit
+```
+
+The Flatpak manifest is available as
+[`io.github.fdf_dev.Zeit.yml`](io.github.fdf_dev.Zeit.yml) for reproducible
+builds. The sandbox allows access to the user's home directory, but system
+crontab operations and privileged PolKit actions are not available.
+
 ### Build and run ###
 ```bash
 cmake -S . -B build \
